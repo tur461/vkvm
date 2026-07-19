@@ -49,4 +49,6 @@ runs:
       shell: bash
       env:
         BUILD_PROFILE: ${{ inputs.profile }}
-      run: ${{ github.action_path }}/build.sh
+      run: |
+        chmod +x "${{ github.action_path }}/build.sh"
+        "${{ github.action_path }}/build.sh"
