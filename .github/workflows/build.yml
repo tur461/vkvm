@@ -13,8 +13,16 @@ jobs:
       - rust
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Cargo Build
-        uses: ./.github/actions/cargo-build
+      - uses: ./.github/actions/setup-rust
+
+      - uses: ./.github/actions/cargo-cache
+
+      - uses: ./.github/actions/cargo-fmt
+
+      - uses: ./.github/actions/cargo-clippy
+
+      - uses: ./.github/actions/cargo-test
+
+      - uses: ./.github/actions/cargo-build

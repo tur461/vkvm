@@ -1,0 +1,12 @@
+name: Cargo Clippy
+
+description: Checks if there are linting errors in the rust project
+
+runs:
+  using: composite
+
+  steps:
+    - shell: bash
+      run: |
+        chmod +x "${{ github.action_path }}/clippy.sh"
+        "${{ github.action_path }}/clippy.sh"

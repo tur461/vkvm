@@ -1,0 +1,12 @@
+name: Cargo Test
+
+description: Run tests on rust project
+
+runs:
+  using: composite
+
+  steps:
+    - shell: bash
+      run: |
+        chmod +x "${{ github.action_path }}/test.sh"
+        "${{ github.action_path }}/test.sh"

@@ -1,0 +1,12 @@
+name: Cargo Format
+
+description: Checks if the rust project is well formatted
+
+runs:
+  using: composite
+
+  steps:
+    - shell: bash
+      run: |
+        chmod +x "${{ github.action_path }}/fmt.sh"
+        "${{ github.action_path }}/fmt.sh"
