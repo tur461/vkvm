@@ -45,19 +45,8 @@ runs:
             exit 1
 
         fi
-
     - name: Build Project
       shell: bash
-      run: |
-        START=$(date +%s)
-        if [ "${{ inputs.profile }}" = "release" ]; then
-
-            cargo build --release
-
-        else
-
-            cargo build
-
-        fi
-        END=$(date +%s)
-        echo "Build took $((END-START)) seconds."
+      env:
+        BUILD_PROFILE: ${{ inputs.profile }}
+      run: ${{ github.action_path }}/build.sh
