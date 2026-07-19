@@ -1,0 +1,20 @@
+name: Rust Build
+
+on:
+  workflow_dispatch:
+
+  push:
+
+jobs:
+  build:
+    runs-on:
+      - self-hosted
+      - arm64
+      - rust
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cargo Build
+        uses: ./.github/actions/cargo-build

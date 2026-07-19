@@ -1,0 +1,41 @@
+name: "Cargo Build"
+
+description: "Build Rust application"
+
+inputs:
+  profile:
+    description: "Build profile"
+    required: false
+    default: release
+
+outputs:
+  binary-path:
+    description: "Binary output path"
+    value: target/${{ inputs.profile }}
+
+runs:
+  using: composite
+
+  steps:
+    - name: Show Runner Information
+      shell: bash
+      run: |
+        echo "Runner: $RUNNER_NAME"
+        echo "OS: $RUNNER_OS"
+        echo "Arch: $RUNNER_ARCH"
+
+    - name: Show Rust Version
+      shell: bash
+      run: |
+        rustc --version
+        cargo --version
+
+    - name: Build Project
+      shell: bash
+      run: |
+        cargo build --${{ inputs.profile }}
+
+    - name: Build Completed
+      shell: bash
+      run: |
+        echo "Build finished successfully."
