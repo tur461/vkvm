@@ -1,0 +1,25 @@
+name: Test Self Hosted Runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on:
+      - self-hosted
+      - arm64
+      - rust
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show system info
+        run: |
+          uname -a
+          sw_vers
+          rustc --version
+          cargo --version
+
+      - name: List files
+        run: ls -la
