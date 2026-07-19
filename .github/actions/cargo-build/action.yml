@@ -20,9 +20,14 @@ runs:
     - name: Show Runner Information
       shell: bash
       run: |
-        echo "Runner: $RUNNER_NAME"
+        echo "Repository : $GITHUB_REPOSITORY"
+        echo "Branch : $GITHUB_REF"
+        echo "Commit : $GITHUB_SHA"
+        echo "Runner : $RUNNER_NAME"
         echo "OS: $RUNNER_OS"
         echo "Arch: $RUNNER_ARCH"
+        echo "Workflow : $GITHUB_WORKFLOW"
+        echo "Job : $GITHUB_JOB"
 
     - name: Show Rust Version
       shell: bash
@@ -30,12 +35,29 @@ runs:
         rustc --version
         cargo --version
 
+    - name: Verify Cargo.toml
+      shell: bash
+      run: |
+        if [ ! -f Cargo.toml ]; then
+
+            echo "Cargo.toml missing"
+
+            exit 1
+
+        fi
+
     - name: Build Project
       shell: bash
       run: |
-        cargo build --${{ inputs.profile }}
+        START=$(date +%s)
+        if [ "${{ inputs.profile }}" = "release" ]; then
 
-    - name: Build Completed
-      shell: bash
-      run: |
-        echo "Build finished successfully."
+            cargo build --release
+
+        else
+
+            cargo build
+
+        fi
+        END=$(date +%s)
+        echo "Build took $((END-START)) seconds."
